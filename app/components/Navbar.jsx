@@ -1,52 +1,53 @@
-// DropdownMenu.js
 'use client';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import Link from 'next/link';
 
-export default function DropdownMenu() {
-	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+const Navbar = () => {
+	const [isOpen, setIsOpen] = useState(false);
 
-	const toggleDropdown = () => {
-		setIsDropdownOpen(!isDropdownOpen);
+	const toggleMenu = () => {
+		setIsOpen(!isOpen);
 	};
 
 	return (
-		<div className='sticky top-0 flex items-center justify-between w-full max-w-4xl py-4 m-auto'>
-			{/* Button to trigger the dropdown */}
-			<div className='relative z-50 px-4 py-2 text-3xl font-bold'>
-				<Link href='/'>alx.dev</Link>
+		<nav className='flex items-center justify-between p-4 '>
+			<div className='relative z-10 text-black'>
+				<Link href='/' className='text-3xl font-bold'>
+					alx.dev
+				</Link>
 			</div>
-			<div>
-				<button
-					onClick={toggleDropdown}
-					className='relative z-10 flex items-center px-4 py-2 space-x-2 text-3xl'
-				>
-					{isDropdownOpen ? <FaTimes /> : <FaBars />}
-				</button>
+			<div className='relative z-10 md:hidden'>
+				{isOpen ? (
+					<FaTimes onClick={toggleMenu} className='text-2xl cursor-pointer' />
+				) : (
+					<FaBars onClick={toggleMenu} className='text-2xl cursor-pointer' />
+				)}
 			</div>
-
-			{/* Dropdown container */}
 			<div
-				className={`absolute top-0 left-0 w-full h-96 overflow-hidden transition-all duration-900 ease-in-out transform ${
-					isDropdownOpen ? 'translate-y-1/8' : '-translate-y-full'
-				}`}
+				className={`md:flex justify-center items-center absolute bg-gray-200 top-0 right-0 w-full h-1/3 transform transition-transform duration-700 ${
+					isOpen
+						? 'translate-y-0 flex flex-col'
+						: '-translate-y-full flex flex-col'
+				} md:transform-none md:bg-transparent md:relative md:flex-row md:space-x-4 md:space-y-0 md:w-auto`}
 			>
-				{/* Dropdown content goes here */}
-				<ul className='flex flex-col items-center justify-center h-full p-4 bg-white '>
-					<li>
-						<Link href='/projects' onClick={toggleDropdown}>
-							Projects
-						</Link>
-					</li>
-					<li>
-						<Link href='/contact' onClick={toggleDropdown}>
-							Contact
-						</Link>
-					</li>
-				</ul>
+				<Link
+					href='/projects'
+					className='px-4 py-2 text-xl hover:text-gray-500'
+					onClick={toggleMenu}
+				>
+					Projects
+				</Link>
+				<Link
+					href='/contact'
+					className='px-4 py-2 text-xl hover:text-gray-500'
+					onClick={toggleMenu}
+				>
+					Contact
+				</Link>
 			</div>
-		</div>
+		</nav>
 	);
-	``;
-}
+};
+
+export default Navbar;

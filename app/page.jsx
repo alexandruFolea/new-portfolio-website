@@ -1,3 +1,5 @@
+import Banner from './components/Banner';
+
 export default function Home() {
-	return <main className='h-screen'>Home</main>;
+	return <main className=''>{/* <Banner /> */}</main>;
 }
